@@ -1,27 +1,31 @@
-# 🔍 Research Assistant – AI-Powered Chrome Extension
+# 🔍 Insightly – AI-Powered Research Assistant
 
-An AI-powered Chrome Extension that helps users understand lengthy online content by generating AI-based summaries using Google's Gemini API.
+**Turn Information into Intelligence.**
 
-Users can select text from any webpage, generate concise summaries, and save important research notes directly inside the browser.
+An AI-powered Chrome Extension that helps users understand, explore, and organize online content using Google's Gemini API.
+
+Insightly allows users to select text from any webpage, generate concise summaries, discover related topics and further reading, and receive AI-generated responses in their preferred language.
 
 ---
 
 ## 🚀 Project Overview
 
-Research Assistant is a browser-based AI research tool designed to make online research faster and more efficient.
+Insightly is a browser-based AI research assistant designed to make online research faster and more efficient.
 
 While browsing websites, users frequently encounter lengthy articles, technical documentation, research papers, and other information that can be difficult to understand manually.
 
-This project aims to simplify that process by providing an AI-powered assistant directly inside Google Chrome.
+Insightly simplifies this process by providing an AI-powered assistant directly inside Google Chrome.
 
-Users can select text from a webpage and request an AI-generated summary. They can also save important research notes for future reference.
+Users can select text from a webpage and perform different AI-powered operations, including summarization and related topic suggestions. They can also choose their preferred response language and save important research notes for future reference.
 
-The application uses a Chrome Extension as its frontend, a Spring Boot backend for request processing, and Google's Gemini API for AI-powered text generation.
+The application uses a Chrome Extension as its frontend, a Spring Boot backend for request processing, Google's Gemini API for AI-powered text generation, and LibreTranslate as the external language source.
 
 ## 🎯 Project Objectives
 
 - Simplify the process of understanding lengthy online content.
 - Generate concise summaries using Artificial Intelligence.
+- Suggest related topics and further reading resources.
+- Support multilingual AI-generated responses.
 - Provide a convenient way to save research notes.
 - Integrate AI capabilities into the Chrome browsing experience.
 - Develop a full-stack application using Java, Spring Boot, JavaScript, and REST APIs.
@@ -31,28 +35,46 @@ The application uses a Chrome Extension as its frontend, a Spring Boot backend f
 ### 1. AI-Powered Text Summarization
 
 - Select text from any webpage.
-- Click the Summarize button in the extension.
+- Click the **Summarize** button in the extension.
 - Send the selected content to the Spring Boot backend.
-- Generate a concise summary using the Gemini API.
-- Display the generated result inside the extension.
+- Generate concise summaries using the Gemini API.
+- Display the generated summary inside the extension.
 
-### 2. Research Notes
+### 2. AI-Powered Related Topic Suggestions
 
-- Write important research notes.
+- Select content from any webpage.
+- Click the **Suggest** button.
+- Generate relevant topics related to the selected content.
+- Discover additional learning resources and further reading materials.
+- Receive website links for exploring topics in greater depth.
+- Display suggestions with formatted headings and content.
+
+### 3. Multilingual Support
+
+- Dynamically retrieve available languages using the LibreTranslate Languages API.
+- Display available languages in a dropdown menu.
+- Select a preferred language for AI-generated responses.
+- Generate summaries and suggestions in the selected language.
+- English is selected as the default language when no other language is chosen.
+
+### 4. Research Notes
+
+- Write important research notes directly inside the extension.
 - Save notes using Chrome's local storage.
 - Retrieve previously saved notes when reopening the extension.
 
-### 3. Loading Indicator
+### 5. Loading Indicator
 
 - Display a loading animation while the AI processes a request.
-- Disable the action button during processing.
+- Disable the corresponding action button during processing.
 - Prevent accidental repeated submissions.
 
-### 4. Browser Integration
+### 6. Browser Integration
 
 - Built using Chrome Extension Manifest V3.
 - Uses Chrome's scripting API to access selected webpage text.
 - Provides a side-panel interface for easy access.
+- Allows users to research content without leaving the current webpage.
 
 ---
 
@@ -66,6 +88,7 @@ The application uses a Chrome Extension as its frontend, a Spring Boot backend f
 | Spring WebFlux | WebClient for external API communication |
 | Lombok | Reduces boilerplate Java code |
 | Google Gemini API | AI-powered text generation |
+| LibreTranslate API | Dynamic language list |
 | JavaScript | Frontend functionality |
 | HTML5 | Extension structure |
 | CSS3 | Extension styling |
@@ -78,40 +101,58 @@ The application uses a Chrome Extension as its frontend, a Spring Boot backend f
 
 ## 🏗️ System Architecture
 
-The project follows a layered architecture.
+The application follows a client-server architecture.
 
 ```text
                   USER
                     |
-             Google Chrome
+              Google Chrome
                     |
-          Chrome Extension UI
-             (HTML/CSS/JS)
+             Insightly Extension
+                (HTML/CSS/JS)
                     |
-             Selected Text
+              Selected Text
                     |
              HTTP POST Request
                     |
-          Spring Boot Backend
+            Spring Boot Backend
                     |
-          ResearchController
+             ResearchController
                     |
-           ResearchService
+              ResearchService
                     |
                Gemini API
                     |
-          AI-Generated Summary
+             AI-Generated Response
                     |
-          Chrome Extension UI
+             Chrome Extension UI
                     |
-             Display Result
+               Display Result
+```
+
+The language selection feature uses a separate flow:
+
+```text
+          LibreTranslate API
+                    |
+             LanguageService
+                    |
+            LanguageController
+                    |
+             Language List
+                    |
+          Insightly Dropdown
+                    |
+           Selected Language
+                    |
+              ResearchService
+                    |
+               Gemini API
 ```
 
 ---
 
 ## 📁 Project Structure
-
-The GitHub repository is organized into two main folders: the Chrome Extension frontend and the Spring Boot backend.
 
 ```text
 ResearchAssistant/
@@ -136,6 +177,9 @@ ResearchAssistant/
 │   │   │   │               ├── ResearchController.java
 │   │   │   │               ├── ResearchRequest.java
 │   │   │   │               ├── ResearchService.java
+│   │   │   │               ├── Language.java
+│   │   │   │               ├── LanguageController.java
+│   │   │   │               ├── LanguageService.java
 │   │   │   │               └── WebClientConfig.java
 │   │   │   │
 │   │   │   └── resources/
@@ -153,21 +197,7 @@ ResearchAssistant/
 
 ---
 
-## ⚙️ How the Application Works
-
-1. **Text Selection:** The user selects text from a webpage and clicks the Summarize button in the Chrome Extension.
-
-2. **Request Handling:** JavaScript captures the selected text and sends it as a JSON request to the Spring Boot backend.
-
-3. **Backend Processing:** The `ResearchController` receives the request and passes it to `ResearchService`, which prepares the prompt.
-
-4. **AI Processing:** The backend sends the prompt to Google's Gemini API using WebClient and receives the generated summary.
-
-5. **Displaying Results:** The backend returns the summary to the Chrome Extension, where it is displayed to the user.
-
----
-
-## 🔧 Backend Setup
+## ⚙️ Backend Setup
 
 ### Prerequisites
 
@@ -203,11 +233,13 @@ server.port=8080
 gemini.api.url=https://generativelanguage.googleapis.com/v1beta/models/YOUR_MODEL:generateContent
 
 gemini.api.key=${GEMINI_API_KEY}
+
+languages.api.url=https://libretranslate.com/languages
 ```
 
 Replace `YOUR_MODEL` with a supported Gemini model.
 
-Set the environment variable containing your API key before running the application.
+Set the environment variable containing your Gemini API key before running the application.
 
 ### Step 3: Install Dependencies
 
@@ -253,13 +285,13 @@ Enable the Developer Mode option in the top-right corner.
 
 Click the extension icon and open its side panel.
 
-Select text from any webpage and use the Summarize action.
+Select text from any webpage, choose a language, and use the Summarize or Suggest action.
 
 ---
 
 ## 🔗 API Documentation
 
-### Endpoint: Process Research Content
+### 1. Process Research Content
 
 **HTTP Method:** POST
 
@@ -269,52 +301,99 @@ Select text from any webpage and use the Summarize action.
 /api/research/process
 ```
 
-**Base URL:**
-
-```text
-http://localhost:8080
-```
-
 **Complete URL:**
 
 ```text
 http://localhost:8080/api/research/process
 ```
 
-### Request Headers
+**Request Headers:**
 
 ```http
 Content-Type: application/json
 ```
 
-### Request Body
+**Request Body:**
 
 ```json
 {
     "content": "Artificial Intelligence is transforming the technology industry.",
-    "operation": "summarize"
+    "operation": "summarize",
+    "language": "en"
 }
 ```
 
-### Currently Implemented Operation
+**Supported Operations:**
 
 | Operation | Description |
 |---|---|
 | `summarize` | Generates a concise summary of the provided content. |
+| `suggest` | Suggests related topics and further reading resources. |
 
-### Successful Response
+**Language Field:**
+
+The `language` field contains the selected language code.
+
+Examples:
+
+| Language | Code |
+|---|---|
+| English | `en` |
+| Hindi | `hi` |
+| Bengali | `bn` |
+
+The available languages are retrieved dynamically from the language provider rather than being maintained as a fixed list in the application.
+
+If no language is selected, English is used as the default.
+
+**Successful Response:**
 
 ```text
 HTTP Status: 200 OK
 ```
 
-Example response:
+The API returns the generated AI response as text.
+
+### 2. Get Available Languages
+
+**HTTP Method:** GET
+
+**Endpoint:**
 
 ```text
-Artificial Intelligence is transforming the technology
-industry by improving automation, productivity, and
-decision-making across different sectors.
+/api/languages
 ```
+
+**Complete URL:**
+
+```text
+http://localhost:8080/api/languages
+```
+
+**Description:**
+
+Retrieves the available language codes and names from the external LibreTranslate language endpoint through the Spring Boot backend.
+
+**Example Response:**
+
+```json
+[
+    {
+        "code": "en",
+        "name": "English"
+    },
+    {
+        "code": "hi",
+        "name": "Hindi"
+    },
+    {
+        "code": "bn",
+        "name": "Bengali"
+    }
+]
+```
+
+The frontend uses this response to populate the language dropdown dynamically.
 
 ---
 
@@ -328,20 +407,20 @@ The backend communicates with Gemini through Spring WebClient.
 
 - Provides AI-powered text generation.
 - Processes user-provided textual content.
-- Generates summaries.
+- Generates concise summaries.
+- Suggests related topics and further reading.
+- Generates responses according to the selected language.
 - Supports integration through HTTP APIs.
 
-### Prompt Generation
+### Dynamic Prompt Generation
 
-The backend creates a prompt based on the requested operation.
+The backend creates prompts based on the requested operation.
 
-For summarization:
+For summarization, the prompt instructs Gemini to generate a clear and concise summary.
 
-```text
-Provide a clear and concise summary of the following text.
-```
+For suggestions, the prompt instructs Gemini to recommend related topics, further reading materials, and relevant website links.
 
-The selected content is appended to the prompt before sending it to Gemini.
+The selected language is also included in the prompt so that Gemini generates the response in the user's preferred language.
 
 ### Response Processing
 
@@ -351,41 +430,19 @@ The backend uses the `GeminiResponse` model and Jackson ObjectMapper to deserial
 
 ---
 
-## ⚙️ Configuration
+## 🌍 Multilingual Integration
 
-### Chrome Extension Permissions
+Insightly uses the LibreTranslate Languages API to retrieve language information dynamically.
 
-The Manifest V3 configuration uses permissions such as:
+The backend's `LanguageService` communicates with the external API using WebClient.
 
-| Permission | Purpose |
-|---|---|
-| `activeTab` | Access the active tab when permitted. |
-| `storage` | Store research notes locally. |
-| `sidePanel` | Display the extension side panel. |
-| `scripting` | Execute scripts to retrieve selected text. |
+The `LanguageController` exposes the available languages through the `/api/languages` endpoint.
 
-### Backend Configuration
+The frontend fetches this endpoint and dynamically creates dropdown options using JavaScript.
 
-| Property | Description |
-|---|---|
-| `server.port` | Port on which Spring Boot runs. |
-| `gemini.api.url` | Gemini API endpoint. |
-| `gemini.api.key` | Gemini API authentication key. |
+When a user selects a language, its code is included in the research request. The `ResearchService` identifies the corresponding language name and adds it to the Gemini prompt.
 
----
-
-## ⚠️ Error Handling
-
-| Error | Possible Reason | Suggested Solution |
-|---|---|---|
-| No text selected | User did not select webpage text. | Ask the user to select text first. |
-| Connection refused | Backend is not running. | Start the Spring Boot application. |
-| 404 Not Found | Incorrect API endpoint. | Verify the frontend URL and controller mapping. |
-| 400 Bad Request | Invalid JSON request. | Verify request body fields. |
-| 401 Unauthorized | Invalid API key or authentication issue. | Verify Gemini API credentials. |
-| 429 Too Many Requests | Gemini API quota or rate limit exceeded. | Check API usage and retry when permitted. |
-| CORS Error | Frontend origin is not allowed. | Configure appropriate backend CORS settings. |
-| 500 Internal Server Error | Backend processing failure. | Check Spring Boot application logs. |
+This allows both summarization and topic suggestions to be generated in the selected language.
 
 ---
 
@@ -396,7 +453,6 @@ The Manifest V3 configuration uses permissions such as:
 - Avoid committing API keys to GitHub.
 - Restrict CORS origins in production.
 - Validate incoming request data.
-- Handle API errors without exposing sensitive internal information.
 - Sanitize AI-generated content before rendering it as HTML.
 
 ---
@@ -405,14 +461,12 @@ The Manifest V3 configuration uses permissions such as:
 
 The following features are planned for future development:
 
-- **Related Topic Suggestions:** Generate relevant topics and further-reading suggestions based on selected webpage content.
 - **PDF Summarization:** Allow users to upload PDF documents and generate summaries.
 - **Research History:** Maintain a history of previously generated summaries.
 - **AI Chat:** Allow users to ask follow-up questions about selected content.
 - **Export Notes:** Export saved notes as PDF or text files.
 - **Bookmark Research:** Save useful webpages and their summaries.
-- **Multi-language Support:** Generate summaries in different languages.
-- **Improved Markdown Rendering:** Display AI responses with properly formatted headings, lists, and code blocks.
+- **Improved Markdown Rendering:** Display AI responses with properly formatted headings, lists, tables, and code blocks.
 - **User Authentication:** Allow users to maintain personal research collections.
 
 ---
@@ -431,4 +485,4 @@ Interests: Java Development, Spring Boot, Backend Development, and Artificial In
 
 If you find this project interesting, consider giving the repository a star!
 
-**Built with Java, Spring Boot, JavaScript, Chrome Extension APIs, and Google Gemini.**
+**Built with Java, Spring Boot, JavaScript, Chrome Extension APIs, LibreTranslate, and Google Gemini.**
