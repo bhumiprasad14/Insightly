@@ -14,12 +14,25 @@ public class ResearchService {
     private String geminiApiUrl;
     @Value("${gemini.api.key}")
     private String geminiApiKey;
+    private final LanguageService languageService;
     private final WebClient webClient;
     private final ObjectMapper objectMapper ;
-    public ResearchService(WebClient.Builder webClientBuilder,ObjectMapper objectMapper)
+    public ResearchService(WebClient.Builder webClientBuilder,ObjectMapper objectMapper,LanguageService languageService)
     {
         this.webClient=webClientBuilder.build();
         this.objectMapper=objectMapper;
+        this.languageService = languageService;
+    }
+    private String getLanguageName(String languageCode) {
+
+        return languageService.getLanguages()
+                .stream()
+                .filter(language ->
+                        language.getCode().equalsIgnoreCase(languageCode))
+                .map(Language::getName)
+                .findFirst()
+                .orElseThrow(() ->
+                        new IllegalArgumentException("Unsupported language"));
     }
     public String processContent(ResearchRequest request) {
 
@@ -71,6 +84,10 @@ public class ResearchService {
     private String buildPrompt(ResearchRequest request)
     {
         StringBuilder prompt=new StringBuilder();
+        String language = getLanguageName(request.getLanguage());
+        prompt.append("\n\nGenerate the entire response in ");
+        prompt.append(language);
+        prompt.append(". Do not respond in another language.");
         switch ((request.getOperation())){
             case "summarize":
                 prompt.append("Provide a clear and concise summary of the following text in a few sentences:\n\n ");
@@ -86,3 +103,4 @@ public class ResearchService {
         return prompt.toString();
     }
 }
+

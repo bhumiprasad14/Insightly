@@ -6,5 +6,6 @@ import lombok.Data;
 public class ResearchRequest {
     private String content;
     private String operation;
+    private String language;
 
 }
