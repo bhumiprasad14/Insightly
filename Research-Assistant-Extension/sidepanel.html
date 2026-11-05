@@ -2,31 +2,42 @@
 <html lang="en">
 
 <head>
-    <title>Research Assistant</title>
+    <title>Insightly</title>
     <link rel="stylesheet" href="sidepanel.css">
 </head>
 
 <body>
     <div class="container">
         <div class="header">
-            <h2>Research Assistant</h2>
+            <h2>Insightly</h2>
+            <h3>Turn Information into Intelligence.</h3>
+            <p>Your AI-powered research companion.</p>
         </div>
-        <div class="actions">
-            <button id="summarizeBtn">Summarize</button>
+        <div class="functionalities">
+            <div class="actions">
+                <button id="summarizeBtn">Summarize</button>
+            </div>
+            <div class="actions">
+                <button id="suggestBtn">Suggest</button>
+            </div>
         </div>
-        <div class="actions">
+        <div class="notes-container">
             <h3>Research Notes</h3>
+            
             <textarea id="notes" placeholder="Enter your research notes here..."></textarea>
+
             <button id="saveNotesBtn">Save Notes</button>
         </div>
+        <div id="loader" class="loader-container" style="display: none;">
+            <div class="spinner"></div>
+            <p>Insightly is processing your request...</p>
+        </div>
+
         <div id="results" class="results">
             <h3>Results</h3>
             <div id="resultsContent"></div>
         </div>
-        <div id="loader" class="loader-container" style="display: none;">
-            <div class="spinner"></div>
-            <p>Research Assistant is processing your request...</p>
-        </div>
+
     </div>
     <script src="sidepanel.js"></script>
 </body>

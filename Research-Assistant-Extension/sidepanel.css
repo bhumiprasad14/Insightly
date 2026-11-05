@@ -16,6 +16,10 @@ body{
     margin: 0px;
     color:rgb(88, 12, 154);
 }
+.header h3{
+    margin: 0px;
+    color:rgb(119, 67, 165);
+}
 .actions{
     display: flex;
     gap:10px;
@@ -33,13 +37,42 @@ button:hover{
     color:yellow;
     cursor: pointer;
 }
-.notes{
+.notes {
     width:100%;
     height:500px;
     padding:10px;
     border:1px solid #eee;
     border-radius: 4px;
     resize: none;
+}
+.notes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.notes-container h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+#notes {
+    width: 100%;
+    min-height: 150px;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    resize: vertical;
+}
+
+#saveNotesBtn {
+    align-self: flex-end;
+    width: auto;
+    height: auto;
+    padding: 10px 20px;
 }
 #results{
     padding:10px;
@@ -72,4 +105,18 @@ button:disabled {
     color: #eee;
     cursor: not-allowed;
     opacity: 0.6;
+}
+.result-content a {
+    color: #2563eb;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.result-content a:hover {
+    color: #1d4ed8;
+}
+.functionalities {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
 }

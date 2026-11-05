@@ -1,16 +1,15 @@
 {
     "manifest_version":3,
-    "name":"Research Assistant",
+    "name":"Insightly",
     "version":"1.0",
     
-    "description":"AI-powered research assistant ",
+    "description":"Turn Information into Intelligence. ",
     "permissions":["activeTab",
     "storage",
     "sidePanel",
     "scripting"],
     "action":{
-        "default_title":"Research Assistant"
-        
+        "default_title":"Insightly"
         },
     "side_panel":{
         "default_path":"sidepanel.html"

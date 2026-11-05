@@ -47,6 +47,7 @@ public class ResearchService {
         return extractTextFromResponse(response);
 
     }
+
     private String extractTextFromResponse(String response)
     {
        try{
@@ -57,7 +58,6 @@ public class ResearchService {
                 firstCandidate.getContent().getParts()!=null &&
                 !firstCandidate.getContent().getParts().isEmpty())
                 {
-
                     return firstCandidate.getContent().getParts().get(0).getText();
                 }
             }
@@ -76,7 +76,7 @@ public class ResearchService {
                 prompt.append("Provide a clear and concise summary of the following text in a few sentences:\n\n ");
                 break;
             case "suggest":
-                prompt.append("Based on the following content : suggest related topics and further reading. Format the response with clear headings and bullet points :\n\n ");
+                prompt.append("Based on the following content : suggest related topics and further reading. Format the response with clear headings and bullet points . Provide the website links too:\n\n ");
                 break;
             default:
                 throw new IllegalArgumentException("Unknown Operation: "+request);
