@@ -106,48 +106,48 @@ The application follows a client-server architecture.
 ```text
                   USER
                     |
-              Google Chrome
+               Google Chrome
                     |
              Insightly Extension
-                (HTML/CSS/JS)
+                 (HTML/CSS/JS)
                     |
-              Selected Text
+               Selected Text
                     |
-             HTTP POST Request
+              HTTP POST Request
                     |
-            Spring Boot Backend
+             Spring Boot Backend
                     |
-             ResearchController
+              ResearchController
                     |
-              ResearchService
+               ResearchService
                     |
-               Gemini API
+                Gemini API
                     |
              AI-Generated Response
                     |
-             Chrome Extension UI
+              Chrome Extension UI
                     |
-               Display Result
+                Display Result
 ```
 
 The language selection feature uses a separate flow:
 
 ```text
-          LibreTranslate API
+           LibreTranslate API
                     |
-             LanguageService
+              LanguageService
                     |
-            LanguageController
+             LanguageController
                     |
-             Language List
+              Language List
                     |
-          Insightly Dropdown
+           Insightly Dropdown
                     |
-           Selected Language
+            Selected Language
                     |
-              ResearchService
+               ResearchService
                     |
-               Gemini API
+                Gemini API
 ```
 
 ---
@@ -155,7 +155,7 @@ The language selection feature uses a separate flow:
 ## 📁 Project Structure
 
 ```text
-ResearchAssistant/
+Insightly/
 │
 ├── Research-Assistant-Extension/
 │   ├── background.js
@@ -212,13 +212,13 @@ Install the following:
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/ResearchAssistant.git
+git clone https://github.com/bhumiprasad14/Insightly.git
 ```
 
 Navigate to the backend directory:
 
 ```bash
-cd ResearchAssistant/assistant
+cd Insightly/assistant
 ```
 
 ### Step 2: Configure Gemini API
@@ -278,7 +278,7 @@ Enable the Developer Mode option in the top-right corner.
 ### Step 3: Load the Extension
 
 1. Click on **Load unpacked**.
-2. Select the `Research-Assistant-Extension` folder.
+2. Select the `Research-Assistant-Extension` folder inside the cloned `Insightly` repository.
 3. The extension will appear in the installed extensions list.
 
 ### Step 4: Open the Extension
